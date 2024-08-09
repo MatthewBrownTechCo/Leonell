@@ -8,6 +8,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func main() {
+	router := gin.Default()
+	router.GET("/recipes", getRecipes)
+	router.GET("/recipes/:id", recipeById)
+	router.POST("/recipes", createRecipe)
+	router.Run("localhost:8080")
+}
+
 type Ingredients struct {
 	Quantity string 			`json:"quantity"`
 	Name string					`json:"name"`
@@ -18,7 +26,44 @@ type Recipe struct {
 	Title string				`json:"title"`
 	Creator string				`json:"creator"`
 	Ingredients []Ingredients 	`json:"ingredients"`
-	Instructions []string			`json:"instructions"`
+	Instructions []string		`json:"instructions"`
+}
+
+func getRecipes(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, recipes)
+}
+
+func getRecipeById(id string) (*Recipe, error) {
+	for i, r := range recipes {
+		if r.ID == id {
+			return &recipes[i], nil
+		}
+	}
+
+	return nil, errors.New("recipe not found")
+}
+
+func recipeById(c *gin.Context) {
+	id := c.Param("id")
+	recipe, err := getRecipeById(id)
+
+	if err != nil {
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "recipe not found"})
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, recipe)
+}
+
+func createRecipe(c *gin.Context) {
+	var newRecipe Recipe
+
+	if err := c.BindJSON(&newRecipe); err != nil {
+		return
+	}
+
+	recipes = append(recipes, newRecipe)
+	c.IndentedJSON(http.StatusCreated, newRecipe)
 }
 
 var recipes = []Recipe {
@@ -51,30 +96,4 @@ var recipes = []Recipe {
 		"Pour into small casserole dish and top with remaining cheese",
 		"Bake at 350° until cheese starts to melt and starts to brown - about 10 minutes",
 	}},
-}
-
-func getRecipes(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, recipes)
-}
-
-func getRecipeById(id string) (*Recipe, error) {
-	for i, r := range recipes {
-		if r.ID == id {
-			return &recipes[i], nil
-		}
-	}
-
-	return nil, errors.New("recipe not found")
-}
-
-func recipeById(c *gin.Context) {
-	id := c.Param("id")
-	recipe, err := getRecipeById(id)
-
-	if err != nil {
-		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "recipe not found"})
-		return
-	}
-
-	c.IndentedJSON(http.StatusOK, recipe)
 }
