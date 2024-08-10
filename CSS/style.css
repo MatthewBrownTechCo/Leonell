@@ -1,3 +1,4 @@
+/* All Pages */
 body {
   background-image: url("https://media.istockphoto.com/id/1294763851/vector/empty-blank-light-cream-or-beige-coloured-grunge-textured-vector-backgrounds.jpg?s=612x612&w=0&k=20&c=EWS5Pi3yUrPlWxICASa0b1E5oNGDD58twPyLRFTKhco=");
   background-size: cover;
@@ -19,6 +20,7 @@ body {
   font-size: 50px;
 }
 
+/* Home Page */
 .home-article {
   display: flex;
   flex-direction: column;
@@ -56,4 +58,28 @@ body {
 .recipe-btn:hover {
   background-color: rgba(0, 0, 0, 0.138);
   cursor: pointer;
+}
+
+/* Recipe List */
+.recipe-title {
+  font-size: 25px;
+}
+
+.recipe-list {
+  list-style-type: none;
+  margin-left: 20%;
+  margin-right: 20%;
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.recipe-link {
+  font-size: 20px;
+  text-decoration: none;
+  color: black;
+  line-height: 40px;
+}
+
+.recipe-link:hover {
+  color: rgb(101, 101, 101);
 }

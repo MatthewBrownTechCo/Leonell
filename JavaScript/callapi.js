@@ -1,4 +1,5 @@
-async function getData() {
+// Gets the list of titles on the recipes page
+async function getRecipeList() {
   try {
     const results = await fetch("http://localhost:8080/recipes")
       .then((data) => data.json())
@@ -26,6 +27,74 @@ async function getData() {
   }
 }
 
+// Gets selected full recipe
+function getRecipe() {
+  getRecipeTitle();
+  getRecipeIngredients();
+  getRecipeInstructions();
+}
+
+// Gets selected recipe title
+async function getRecipeTitle() {
+  const params = new URLSearchParams(window.location.search);
+  const recipeId = params.get("id");
+
+  try {
+    const result = await fetch(`http://localhost:8080/recipes/${recipeId}`)
+      .then((data) => data.json())
+      .then((data) => data);
+
+    const recipeTitle = document.getElementById("recipe-title");
+    recipeTitle.innerHTML = result.title;
+  } catch {
+    recipeTitle.innerHTML = "Recipe not found. Please try again later.";
+  }
+}
+
+// Get selected recipe ingredients
+async function getRecipeIngredients() {
+  const params = new URLSearchParams(window.location.search);
+  const recipeId = params.get("id");
+
+  try {
+    const result = await fetch(`http://localhost:8080/recipes/${recipeId}`)
+      .then((data) => data.json())
+      .then((data) => data);
+
+    const ingredients = document.getElementById("recipe-ingredients");
+    ingredients.innerHTML = ""; // Clear any previous content
+    result.ingredients.forEach((ingredient) => {
+      const listItem = document.createElement("li");
+      listItem.textContent = `${ingredient.quantity} ${ingredient.name}`;
+      ingredients.appendChild(listItem);
+    });
+  } catch {
+    ingredients.innerHTML = "Recipe not found. Please try again later.";
+  }
+}
+
+async function getRecipeInstructions() {
+  const params = new URLSearchParams(window.location.search);
+  const recipeId = params.get("id");
+
+  try {
+    const result = await fetch(`http://localhost:8080/recipes/${recipeId}`)
+      .then((data) => data.json())
+      .then((data) => data);
+
+    const instructions = document.getElementById("recipe-instructions");
+    instructions.innerHTML = ""; // Clear any previous content
+
+    result.instructions.forEach((instruction) => {
+      const listItem = document.createElement("li");
+      listItem.textContent = instruction;
+      instructions.appendChild(listItem);
+    });
+  } catch {
+    ingredients.innerHTML = "Recipe not found. Please try again later.";
+  }
+}
+
 async function createRecipe(id, title, creator, ingredients, instructions) {
   const data = {
     id,
@@ -45,28 +114,3 @@ async function createRecipe(id, title, creator, ingredients, instructions) {
     .then((data) => data);
   console.log(result);
 }
-
-async function getRecipe() {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-
-  try {
-    const response = await fetch(`http://localhost:8080/recipes/${id}`);
-    const recipe = await response.json();
-
-    document.getElementById("recipe-title").textContent = recipe.title;
-    document.getElementById(
-      "recipe-creator"
-    ).textContent = `Creator: ${recipe.creator}`;
-    document.getElementById(
-      "recipe-ingredients"
-    ).textContent = `Ingredients: ${recipe.ingredients.join(", ")}`;
-    document.getElementById(
-      "recipe-instructions"
-    ).textContent = `Instructions: ${recipe.instructions}`;
-  } catch (error) {
-    console.error("Failed to fetch recipe:", error);
-  }
-}
-
-window.onload = getRecipe;

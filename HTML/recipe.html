@@ -3,9 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Leonell | A Multi-Family Cookbook</title>
+    <link rel="stylesheet" href="/CSS/style.css" />
   </head>
   <body>
-    <p>test</p>
+    <header class="headers">
+      <h1 class="main-header">
+        <strong><em>LEONELL</em></strong>
+      </h1>
+      <h2 class="sub-header">A Multi-Family Cookbook</h2>
+      <h4 id="recipe-title"></h4>
+      <h5 class="recipe-author"></h5>
+    </header>
+    <article class="recipe-container">
+      <header>Ingredients</header>
+      <ul id="recipe-ingredients"></ul>
+      <header>Instructions</header>
+      <ul id="recipe-instructions"></ul>
+    </article>
+    <script src="/JavaScript/callapi.js"></script>
+    <script>
+      window.onload = getRecipe();
+    </script>
   </body>
 </html>
