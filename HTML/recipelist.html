@@ -14,8 +14,103 @@
       <h2 class="sub-header">A Multi-Family Cookbook</h2>
       <h4 class="recipe-title">Recipe List</h4>
     </header>
+    <div class="add-btn-container">
+      <button id="add-recipe" onclick="openPopUp()">Add New Recipe</button>
+    </div>
     <ul id="recipe-list" class="recipe-list"></ul>
+    <!-- Pop-Up HTML -->
+    <div class="popup" id="nr-popup">
+      <h2>Create New Recipe</h2>
+      <h3>Please fill out all of the below fields.</h3>
+      <form id="recipe-form">
+        <div id="new-title-container">
+          <label for="new-title">Recipe Title:</label>
+          <input
+            type="text"
+            id="new-title"
+            name="title"
+            placeholder="Example: Taco Salad"
+            required
+          />
+        </div>
+        <div id="new-author-container">
+          <label for="new-author">Author:</label>
+          <input
+            type="text"
+            id="new-author"
+            name="author"
+            placeholder="Example: Brittney Brown"
+            required
+          />
+        </div>
+        <div id="ingredients-container">
+          <div class="ingredient">
+            <label for="ingredient-1">Ingredient:</label>
+            <input
+              type="text"
+              id="ingredient-1"
+              name="ingredientQuantity"
+              placeholder="Quantity"
+              required
+            />
+            <input
+              type="text"
+              name="ingredientName"
+              placeholder="Ingredient"
+              required
+            />
+            <button
+              type="button"
+              class="removeIngredientBtn"
+              onclick="removeIngredient(this)"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+        <div id="add-ingredient-container">
+          <button type="button" id="addIngredientBtn" onclick="addIngredient()">
+            Add Ingredient
+          </button>
+        </div>
+        <div id="instructions-container">
+          <div class="instruction">
+            <label for="instruction-1">Instruction:</label>
+            <input
+              type="text"
+              id="instruction-1"
+              name="instructionQuantity"
+              placeholder="Instruction"
+              required
+            />
+            <button
+              type="button"
+              class="removeInstructionBtn"
+              onclick="removeInstruction(this)"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+        <div id="add-instruction-container">
+          <button
+            type="button"
+            id="addInstructionBtn"
+            onclick="addInstruction()"
+          >
+            Add Instruction
+          </button>
+        </div>
+        <div id="close-popup-container">
+          <button type="button" class="close-rules" onclick="closePopUp()">
+            Close
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- Pop-Up HTML -->
     <script src="/JavaScript/callapi.js"></script>
+    <script src="/JavaScript/newrecipe.js"></script>
     <script src="/JavaScript/navscript.js"></script>
     <script>
       window.onload = getRecipeList();

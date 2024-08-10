@@ -30,6 +30,7 @@ async function getRecipeList() {
 // Gets selected full recipe
 function getRecipe() {
   getRecipeTitle();
+  getRecipeAuthor();
   getRecipeIngredients();
   getRecipeInstructions();
 }
@@ -49,6 +50,18 @@ async function getRecipeTitle() {
   } catch {
     recipeTitle.innerHTML = "Recipe not found. Please try again later.";
   }
+}
+
+async function getRecipeAuthor() {
+  const params = new URLSearchParams(window.location.search);
+  const recipeId = params.get("id");
+
+  const result = await fetch(`http://localhost:8080/recipes/${recipeId}`)
+    .then((data) => data.json())
+    .then((data) => data);
+
+  const recipeAuthor = document.getElementById("recipe-author");
+  recipeAuthor.innerHTML = `Author: ${result.creator}`;
 }
 
 // Get selected recipe ingredients
@@ -73,6 +86,7 @@ async function getRecipeIngredients() {
   }
 }
 
+// Get selected recipe instructions
 async function getRecipeInstructions() {
   const params = new URLSearchParams(window.location.search);
   const recipeId = params.get("id");
@@ -95,6 +109,7 @@ async function getRecipeInstructions() {
   }
 }
 
+// Create new recipe
 async function createRecipe(id, title, creator, ingredients, instructions) {
   const data = {
     id,

@@ -62,14 +62,33 @@ body {
 
 /* Recipe List */
 .recipe-title {
-  font-size: 25px;
+  font-size: 30px;
+  margin-bottom: 2%;
+}
+
+.add-btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#add-recipe {
+  background-color: transparent;
+  text-decoration: none;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+#add-recipe:hover {
+  color: rgb(101, 101, 101);
 }
 
 .recipe-list {
   list-style-type: none;
   margin-left: 20%;
   margin-right: 20%;
-  border: 1px solid black;
+  border: 10px double black;
   padding: 20px;
 }
 
@@ -82,4 +101,50 @@ body {
 
 .recipe-link:hover {
   color: rgb(101, 101, 101);
+}
+
+/* Pop-up Recipe Form */
+#recipe-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.popup {
+  width: 400px;
+  background: white;
+  border-radius: 6px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  text-align: center;
+  padding: 30px 30px 30px;
+  visibility: hidden;
+  transition: transform 0.2s, visibility 0.2s;
+  color: rgb(0, 94, 0);
+}
+
+.open-popup {
+  visibility: visible;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Individual Recipes */
+#recipe-title {
+  font-size: 30px;
+  margin-bottom: -2%;
+}
+
+#recipe-author {
+  font-size: 25px;
+  margin-bottom: 2%;
+}
+
+.recipe-container {
+  font-size: 20px;
+  margin-left: 20%;
+  margin-right: 20%;
+  border: 10px double black;
+  padding: 2%;
 }
