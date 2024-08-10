@@ -5,11 +5,19 @@ import (
 
 	"errors"
 
+	"github.com/gin-contrib/cors"
+
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	router := gin.Default()
+	router.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"http://127.0.0.1:5500"},
+		AllowMethods: []string{"PUT", "PATCH", "POST", "DELETE", "GET"},
+		AllowHeaders: []string{"Content-Type"},
+		AllowCredentials: true,
+	}))
 	router.GET("/recipes", getRecipes)
 	router.GET("/recipes/:id", recipeById)
 	router.POST("/recipes", createRecipe)
