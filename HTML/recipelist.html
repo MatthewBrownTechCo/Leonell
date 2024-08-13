@@ -15,48 +15,56 @@
       <h4 class="recipe-title">Recipe List</h4>
     </header>
     <div class="add-btn-container">
-      <button id="add-recipe" onclick="openPopUp()">Add New Recipe</button>
+      <button id="add-recipe" onclick="openPopUp(); fetchLatestRecipeId();">
+        Add New Recipe
+      </button>
     </div>
     <ul id="recipe-list" class="recipe-list"></ul>
+    <!-- Blur effect behind Pop-Up -->
+    <div id="overlay"></div>
     <!-- Pop-Up HTML -->
     <div class="popup" id="nr-popup">
       <h2>Create New Recipe</h2>
       <h3>Please fill out all of the below fields.</h3>
       <form id="recipe-form">
-        <div id="new-title-container">
+        <div class="form-func-container">
           <label for="new-title">Recipe Title:</label>
           <input
             type="text"
             id="new-title"
+            class="input"
             name="title"
             placeholder="Example: Taco Salad"
             required
           />
         </div>
-        <div id="new-author-container">
+        <div class="form-func-container">
           <label for="new-author">Author:</label>
           <input
             type="text"
             id="new-author"
+            class="input"
             name="author"
             placeholder="Example: Brittney Brown"
             required
           />
         </div>
-        <div id="ingredients-container">
+        <div class="form-func-container" id="ingredients-container">
           <div class="ingredient">
             <label for="ingredient-1">Ingredient:</label>
             <input
               type="text"
               id="ingredient-1"
+              class="input"
               name="ingredientQuantity"
               placeholder="Quantity"
               required
             />
             <input
               type="text"
+              class="input"
               name="ingredientName"
-              placeholder="Ingredient"
+              placeholder="ingredients"
               required
             />
             <button
@@ -68,18 +76,19 @@
             </button>
           </div>
         </div>
-        <div id="add-ingredient-container">
+        <div class="form-func-container" id="add-ingredient">
           <button type="button" id="addIngredientBtn" onclick="addIngredient()">
             Add Ingredient
           </button>
         </div>
-        <div id="instructions-container">
+        <div class="form-func-container" id="instructions-container">
           <div class="instruction">
             <label for="instruction-1">Instruction:</label>
             <input
               type="text"
               id="instruction-1"
-              name="instructionQuantity"
+              class="input"
+              name="instruction"
               placeholder="Instruction"
               required
             />
@@ -92,7 +101,7 @@
             </button>
           </div>
         </div>
-        <div id="add-instruction-container">
+        <div class="form-func-container" id="add-instruction">
           <button
             type="button"
             id="addInstructionBtn"
@@ -101,8 +110,9 @@
             Add Instruction
           </button>
         </div>
-        <div id="close-popup-container">
-          <button type="button" class="close-rules" onclick="closePopUp()">
+        <div class="submit-close">
+          <button type="submit" class="submit">Submit</button>
+          <button type="button" class="close-popup" onclick="closePopUp()">
             Close
           </button>
         </div>

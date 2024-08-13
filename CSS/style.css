@@ -103,6 +103,19 @@ body {
   color: rgb(101, 101, 101);
 }
 
+/* Transparent background behind Pop-Up */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  backdrop-filter: blur(5px); /* Apply blur effect to the background */
+  visibility: hidden; /* Initially hidden */
+  z-index: 2;
+}
+
 /* Pop-up Recipe Form */
 #recipe-form {
   display: flex;
@@ -110,24 +123,72 @@ body {
 }
 
 .popup {
-  width: 400px;
+  width: 475px;
   background: white;
   border-radius: 6px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
-  text-align: center;
+  text-align: left;
   padding: 30px 30px 30px;
   visibility: hidden;
   transition: transform 0.2s, visibility 0.2s;
-  color: rgb(0, 94, 0);
+  z-index: 3;
 }
 
 .open-popup {
   visibility: visible;
   top: 50%;
   transform: translate(-50%, -50%) scale(1);
+}
+
+#recipe-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-func-container {
+  margin-bottom: 3%;
+}
+
+#add-ingredient {
+  margin-top: -2%;
+  margin-bottom: 4%;
+}
+
+#add-instruction {
+  margin-top: -2%;
+  margin-bottom: 4%;
+}
+
+.input {
+  border: 1px solid black;
+}
+
+button {
+  background-color: transparent;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgba(0, 0, 0, 0.138);
+}
+
+.submit-close {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.submit {
+  width: 35%;
+  margin-bottom: 2%;
+}
+
+.close-popup {
+  width: 35%;
 }
 
 /* Individual Recipes */
