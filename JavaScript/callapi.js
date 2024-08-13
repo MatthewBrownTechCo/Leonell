@@ -108,24 +108,3 @@ async function getRecipeInstructions() {
     ingredients.innerHTML = "Recipe not found. Please try again later.";
   }
 }
-
-// Create new recipe
-async function createRecipe(id, title, creator, ingredients, instructions) {
-  const data = {
-    id,
-    title,
-    creator,
-    ingredients,
-    instructions,
-  };
-  const result = await fetch("http://localhost:8080/recipes", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((data) => data.json())
-    .then((data) => data);
-  console.log(result);
-}
