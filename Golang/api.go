@@ -32,7 +32,7 @@ type Ingredients struct {
 type Recipe struct {
 	ID string					`json:"id"`
 	Title string				`json:"title"`
-	Creator string			`json:"creator"`
+	Creator string				`json:"creator"`
 	Ingredients []Ingredients 	`json:"ingredients"`
 	Instructions []string		`json:"instructions"`
 }
