@@ -19,17 +19,25 @@ function closePopUp() {
 async function fetchLatestRecipeId() {
   try {
     const response = await fetch("http://localhost:8080/recipes");
+
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
     const recipes = await response.json();
     currentMaxId =
       recipes.length > 0
-        ? recipes.reduce(
-            (maxId, recipe) => Math.max(maxId, parseInt(recipe.ID, 10)), // Ensure parsing with base 10
-            0
-          )
+        ? recipes.reduce((maxId, recipe) => {
+            console.log("Processing recipe:", recipe);
+            const id = parseInt(recipe.id, 10);
+            if (isNaN(id)) {
+              console.error(`Invalid ID found: ${recipe.id}`);
+              return maxId;
+            }
+            return Math.max(maxId, id);
+          }, 0)
         : 0; // Default to 0 if no recipes
+
+    console.log("Max ID:", currentMaxId);
   } catch (error) {
     console.error("Error fetching recipes:", error);
     currentMaxId = 0; // Default to 0 in case of error
@@ -42,37 +50,41 @@ recipeForm.addEventListener("submit", async (event) => {
   // Create a new ID for form submission
   const newId = (currentMaxId + 1).toString();
 
-  // Gather ingredients
-  const ingredients = [];
-  const ingredientElements = document.querySelectorAll(".ingredient");
-  ingredientElements.forEach((ingredientElement) => {
-    const quantity = ingredientElement.querySelector(
-      '[name="ingredientQuantity"]'
-    ).value;
-    const name = ingredientElement.querySelector(
-      '[name="ingredientName"]'
-    ).value;
-    if (quantity && name) {
-      ingredients.push({ quantity, name });
-    }
-  });
+  const ingredientsContainer = document.getElementById("ingredients-container");
 
-  // Gather instructions
+  // Collected ingredient values
+  const quantityInputs = ingredientsContainer.querySelectorAll(
+    'input[name="ingredientQuantity"]'
+  );
+  const nameInputs = ingredientsContainer.querySelectorAll(
+    'input[name="ingredientName"]'
+  );
+
+  const ingredients = [];
+  for (let i = 0; i < quantityInputs.length; i++) {
+    ingredients.push({
+      quantity: quantityInputs[i].value,
+      name: nameInputs[i].value,
+    });
+  }
+
+  const instructionsInput = document.querySelectorAll(
+    'input[name="instruction"]'
+  );
+
   const instructions = [];
-  const instructionElements = document.querySelectorAll(".instruction");
-  instructionElements.forEach((instructionElement) => {
-    const instruction = instructionElement.querySelector(
-      '[name="instruction"]'
-    ).value;
-    if (instruction) {
-      instructions.push(instruction);
-    }
-  });
+  for (let i = 0; i < instructionsInput.length; i++) {
+    instructions.push(instructionsInput[i].value);
+  }
+
+  // Collect other form values
+  const title = document.getElementById("new-title").value;
+  const author = document.getElementById("new-author").value;
 
   const fullRecipe = {
-    ID: newId, // Uses the new ID
-    title: recipeForm.querySelector('[name="title"]').value,
-    creator: recipeForm.querySelector('[name="author"]').value,
+    id: newId,
+    title: title,
+    creator: author,
     ingredients: ingredients,
     instructions: instructions,
   };
