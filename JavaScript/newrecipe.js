@@ -101,7 +101,7 @@ recipeForm.addEventListener("submit", async (event) => {
     if (response.ok) {
       alert("Recipe added successfully!");
       recipeForm.reset();
-      modal.style.display = "none";
+      closePopUp();
       currentMaxId++; // Update the max ID after successful submission
     } else {
       alert("Failed to add recipe.");

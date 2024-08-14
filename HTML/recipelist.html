@@ -9,14 +9,16 @@
   <body>
     <header class="headers">
       <h1 class="main-header">
-        <strong><em>LEONELL</em></strong>
+        <a href="home.html" class="main-head-style"
+          ><strong><em>LEONELL</em></strong></a
+        >
       </h1>
       <h2 class="sub-header">A Multi-Family Cookbook</h2>
       <h4 class="recipe-title">Recipe List</h4>
     </header>
     <div class="add-btn-container">
       <button id="add-recipe" onclick="openPopUp(); fetchLatestRecipeId();">
-        Add New Recipe
+        + Add New Recipe
       </button>
     </div>
     <ul id="recipe-list" class="recipe-list"></ul>
@@ -54,6 +56,7 @@
             <label for="ingredient-1">Ingredient:</label>
             <input
               type="text"
+              id="ingredient-1"
               class="input"
               name="ingredientQuantity"
               placeholder="Quantity"
