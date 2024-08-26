@@ -5,6 +5,8 @@ async function getRecipeList() {
       .then((data) => data.json())
       .then((data) => data);
 
+    results.sort((a, b) => a.title.localeCompare(b.title));
+
     const recipeList = document.getElementById("recipe-list");
     recipeList.innerHTML = "";
 
